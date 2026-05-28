@@ -320,8 +320,8 @@ body { background: var(--bg); color: var(--text); font-family: 'Sarabun', sans-s
 <div class="topbar">
   <div class="brand">◾ MC — Customer Success</div>
   <div class="tab-row">
-    <button class="tab" onclick="setTab('meetings')">📋 Meetings</button>
-    <button class="tab on" onclick="setTab('cases')">🗂 Cases</button>
+    <button class="tab on" onclick="setTab('meetings')">📋 Meetings</button>
+    <button class="tab" onclick="setTab('cases')">🗂 Cases</button>
     <button class="tab" onclick="setTab('team')">👥 Team</button>
   </div>
   <div class="topbar-actions">
@@ -334,151 +334,200 @@ body { background: var(--bg); color: var(--text); font-family: 'Sarabun', sans-s
 </div>
 
 <div class="layout">
-  <div class="sidebar" id="sidebar" style="display: none;"><div class="sidebar-hd">Sessions</div>
+  <div class="sidebar" id="sidebar" style=""><div class="sidebar-hd">Sessions</div>
     <div class="sitem on" onclick="selectM('c2ybv75')">
       <div class="sitem-date">28 May 2026</div>
       <div class="sitem-title">Wednesday, May 27, 2026</div>
       <div class="sitem-sub">7 people · 4 tasks</div>
     </div></div>
-  <div class="main" id="main"><div class="cases-wrap">
-    <div class="cases-top"><h2>Case Tracker</h2><button class="btn primary sm" onclick="newCase()">+ New Case</button></div>
-    <div class="stats">
-      <div class="stat"><div class="stat-l">Open</div><div class="stat-v v-open">3</div></div>
-      <div class="stat"><div class="stat-l">In Progress</div><div class="stat-v v-prog">1</div></div>
-      <div class="stat"><div class="stat-l">Closed</div><div class="stat-v v-closed">0</div></div>
-      <div class="stat"><div class="stat-l">Avg Lead Time</div><div class="stat-v v-day">—</div></div>
-    </div>
-    <div class="filter-row">
-      <input class="srch" placeholder="🔍 Search..." value="" oninput="caseSearch=this.value;renderCases()">
-      <button class="fchip f-all on" onclick="caseFilter='all';renderCases()">All</button><button class="fchip f-open " onclick="caseFilter='open';renderCases()">Open</button><button class="fchip f-in_progress " onclick="caseFilter='in_progress';renderCases()">In Progress</button><button class="fchip f-closed " onclick="caseFilter='closed';renderCases()">Closed</button>
-    </div>
-    <div class="case-card">
-    <div class="case-hd" onclick="toggleCase('05qzsfp')">
-      <div class="case-id-badge">#001</div>
-      <input class="case-ttl-input" value="Hot Spring: Performance dropped, and client reduced budget" onclick="event.stopPropagation()" onchange="updateCaseField('05qzsfp','title',this.value)" placeholder="Case title...">
-      <div class="case-meta2">
-        <span class="badge b-open">Open</span>
-        <select class="owner-sel" onclick="event.stopPropagation()" onchange="updateCaseField('05qzsfp','owner',this.value)">
-          <option value="">— Owner —</option><option value="Dow">Dow</option><option value="P'BiG">P'BiG</option><option value="Aun">Aun</option><option value="Mine">Mine</option><option value="Stamp">Stamp</option><option value="Leroy" selected="">Leroy</option><option value="P'KiT">P'KiT</option>
-        </select>
-        <span class="lead-badge">1d</span>
-        <button class="btn ghost sm" onclick="event.stopPropagation();addUpdate('05qzsfp')">+ Update</button>
-        <button class="btn sm" style="color:var(--accent);border-color:var(--accent)" onclick="event.stopPropagation();closeCase('05qzsfp')">✔ Close</button>
-        <button class="btn danger sm" onclick="event.stopPropagation();deleteCase('05qzsfp')">🗑</button>
-        <span class="chev open">▶</span>
+  <div class="main" id="main"><div class="pad">
+    <div class="pad-header">
+      <div class="pad-title-wrap">
+        <div class="pad-date">28 May 2026</div>
+        <input class="pad-title" value="Wednesday, May 27, 2026" placeholder="Meeting name..." onchange="updateM('c2ybv75','title',this.value)">
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn sm ghost" onclick="deleteMeeting('c2ybv75')">🗑 Delete</button>
       </div>
     </div>
-    <div class="tl"><div class="tl-sep"></div>
-      <div class="tl-item">
-        <div class="tl-dot d-open">★</div>
-        <div class="tl-body">
-          <div class="tl-date">27 May 2026</div>
-          <div class="tl-action">to review the campaign and update P’BiG and P’KiT</div>
-          <div class="tl-by">by Leroy</div>
+
+    <div class="section">
+      <div class="sec-label">👥 Attendees</div>
+      <div class="att-chips">
+        <span class="chip"><div style="width:18px;height:18px;border-radius:50%;background:#0d6e6e;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0">D</div> Dow<span class="x" onclick="removeAtt('c2ybv75',0)">×</span></span><span class="chip"><div style="width:18px;height:18px;border-radius:50%;background:#1a4a8a;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0">P</div> P'BiG<span class="x" onclick="removeAtt('c2ybv75',1)">×</span></span><span class="chip"><div style="width:18px;height:18px;border-radius:50%;background:#0d6e6e;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0">A</div> Aun<span class="x" onclick="removeAtt('c2ybv75',2)">×</span></span><span class="chip"><div style="width:18px;height:18px;border-radius:50%;background:#7b2d8b;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0">M</div> Mine<span class="x" onclick="removeAtt('c2ybv75',3)">×</span></span><span class="chip"><div style="width:18px;height:18px;border-radius:50%;background:#1a4a8a;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0">S</div> Stamp<span class="x" onclick="removeAtt('c2ybv75',4)">×</span></span><span class="chip"><div style="width:18px;height:18px;border-radius:50%;background:#1a4a8a;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0">L</div> Leroy<span class="x" onclick="removeAtt('c2ybv75',5)">×</span></span><span class="chip"><div style="width:18px;height:18px;border-radius:50%;background:#8b3a3a;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0">P</div> P'KiT<span class="x" onclick="removeAtt('c2ybv75',6)">×</span></span>
+        <button class="chip-add" onclick="openAttDropdown('c2ybv75')">+ Add</button>
+      </div>
+      <div class="att-dd-wrap" id="att-dd-wrap-c2ybv75" style="display:none">
+        <div class="att-dd-top">
+          <input class="att-search" id="att-search" placeholder="Search..." oninput="filterAttOptions('c2ybv75',this.value)" autocomplete="off">
+          <div class="att-dd-actions">
+            <button class="btn ghost sm" onclick="selectAllAtt('c2ybv75')">Select All</button>
+            <button class="btn ghost sm" onclick="clearAllAtt('c2ybv75')">Clear All</button>
+            <button class="btn primary sm" onclick="closeAttDropdown('c2ybv75')">Done</button>
+          </div>
         </div>
-        <div class="tl-actions">
-          <button class="btn ghost sm" style="font-size:11px;padding:2px 7px" onclick="event.stopPropagation();editHistory('05qzsfp',0)">✏️</button>
-          <button class="btn danger sm" style="font-size:11px;padding:2px 7px" onclick="event.stopPropagation();deleteHistory('05qzsfp',0)">×</button>
+        <div class="att-options" id="att-options-c2ybv75">
+          
+            <label class="att-option att-check" onclick="event.stopPropagation()">
+              <input type="checkbox" class="att-cb" value="Dow" checked="" onchange="toggleAtt('c2ybv75','Dow',this.checked)">
+              <div style="width:22px;height:22px;border-radius:50%;background:#0d6e6e;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">D</div>
+              <div><div class="att-option-name">Dow</div><div class="att-option-email">raphirat@media-console.com</div></div>
+            </label>
+            <label class="att-option att-check" onclick="event.stopPropagation()">
+              <input type="checkbox" class="att-cb" value="P'BiG" checked="" onchange="toggleAtt('c2ybv75','P'BiG',this.checked)">
+              <div style="width:22px;height:22px;border-radius:50%;background:#1a4a8a;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">P</div>
+              <div><div class="att-option-name">P'BiG</div><div class="att-option-email">paul.ponlaphat@media-console.com</div></div>
+            </label>
+            <label class="att-option att-check" onclick="event.stopPropagation()">
+              <input type="checkbox" class="att-cb" value="Aun" checked="" onchange="toggleAtt('c2ybv75','Aun',this.checked)">
+              <div style="width:22px;height:22px;border-radius:50%;background:#0d6e6e;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">A</div>
+              <div><div class="att-option-name">Aun</div><div class="att-option-email">kornkanok@media-console.com</div></div>
+            </label>
+            <label class="att-option att-check" onclick="event.stopPropagation()">
+              <input type="checkbox" class="att-cb" value="Mine" checked="" onchange="toggleAtt('c2ybv75','Mine',this.checked)">
+              <div style="width:22px;height:22px;border-radius:50%;background:#7b2d8b;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">M</div>
+              <div><div class="att-option-name">Mine</div><div class="att-option-email">sarinya@media-console.com</div></div>
+            </label>
+            <label class="att-option att-check" onclick="event.stopPropagation()">
+              <input type="checkbox" class="att-cb" value="Stamp" checked="" onchange="toggleAtt('c2ybv75','Stamp',this.checked)">
+              <div style="width:22px;height:22px;border-radius:50%;background:#1a4a8a;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">S</div>
+              <div><div class="att-option-name">Stamp</div><div class="att-option-email">tanapon@media-console.com</div></div>
+            </label>
+            <label class="att-option att-check" onclick="event.stopPropagation()">
+              <input type="checkbox" class="att-cb" value="Leroy" checked="" onchange="toggleAtt('c2ybv75','Leroy',this.checked)">
+              <div style="width:22px;height:22px;border-radius:50%;background:#1a4a8a;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">L</div>
+              <div><div class="att-option-name">Leroy</div><div class="att-option-email">leroy.chl@media-console.com</div></div>
+            </label>
+            <label class="att-option att-check" onclick="event.stopPropagation()">
+              <input type="checkbox" class="att-cb" value="P'KiT" checked="" onchange="toggleAtt('c2ybv75','P'KiT',this.checked)">
+              <div style="width:22px;height:22px;border-radius:50%;background:#8b3a3a;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">P</div>
+              <div><div class="att-option-name">P'KiT</div><div class="att-option-email">kittipong@media-console.com</div></div>
+            </label>
         </div>
-      </div></div>
-  </div><div class="case-card">
-    <div class="case-hd" onclick="toggleCase('s8pdjfj')">
-      <div class="case-id-badge">#002</div>
-      <input class="case-ttl-input" value="Souphattra: low bookings revenue" onclick="event.stopPropagation()" onchange="updateCaseField('s8pdjfj','title',this.value)" placeholder="Case title...">
-      <div class="case-meta2">
-        <span class="badge b-open">Open</span>
-        <select class="owner-sel" onclick="event.stopPropagation()" onchange="updateCaseField('s8pdjfj','owner',this.value)">
-          <option value="">— Owner —</option><option value="Dow">Dow</option><option value="P'BiG">P'BiG</option><option value="Aun">Aun</option><option value="Mine">Mine</option><option value="Stamp">Stamp</option><option value="Leroy" selected="">Leroy</option><option value="P'KiT">P'KiT</option>
-        </select>
-        <span class="lead-badge">1d</span>
-        <button class="btn ghost sm" onclick="event.stopPropagation();addUpdate('s8pdjfj')">+ Update</button>
-        <button class="btn sm" style="color:var(--accent);border-color:var(--accent)" onclick="event.stopPropagation();closeCase('s8pdjfj')">✔ Close</button>
-        <button class="btn danger sm" onclick="event.stopPropagation();deleteCase('s8pdjfj')">🗑</button>
-        <span class="chev open">▶</span>
       </div>
     </div>
-    <div class="tl"><div class="tl-sep"></div>
-      <div class="tl-item">
-        <div class="tl-dot d-open">★</div>
-        <div class="tl-body">
-          <div class="tl-date">27 May 2026</div>
-          <div class="tl-action">to review with P'KiT and suggest possible solutions</div>
-          <div class="tl-by">by Leroy</div>
+
+    <div class="section">
+      <div class="sec-label">💬 Topics</div>
+      <div id="topics-list">
+        <div class="topic-item">
+          <div class="topic-num">1.</div>
+          <textarea class="topic-text" rows="1" placeholder="Topic..." onchange="updateTopic('c2ybv75',0,'title',this.value)" oninput="autoResize(this)" style="height: 24px;">New coming account: Chateauduvillage Patong (same owner as Nap Patong)</textarea>
+          <button class="btn ghost sm" style="padding:2px 7px" onclick="removeTopic('c2ybv75',0)">×</button>
+        </div><div class="topic-item">
+          <div class="topic-num">2.</div>
+          <textarea class="topic-text" rows="1" placeholder="Topic..." onchange="updateTopic('c2ybv75',1,'title',this.value)" oninput="autoResize(this)" style="height: 24px;">Hot Spring: Performance dropped, and the client reduced the budget from 85K to 50K</textarea>
+          <button class="btn ghost sm" style="padding:2px 7px" onclick="removeTopic('c2ybv75',1)">×</button>
+        </div><div class="topic-item">
+          <div class="topic-num">3.</div>
+          <textarea class="topic-text" rows="1" placeholder="Topic..." onchange="updateTopic('c2ybv75',2,'title',this.value)" oninput="autoResize(this)" style="height: 42px;">Souphattra: Need ideas to upsell because the client renewed with the same budget, also difficult to increase budget due to low bookings</textarea>
+          <button class="btn ghost sm" style="padding:2px 7px" onclick="removeTopic('c2ybv75',2)">×</button>
+        </div><div class="topic-item">
+          <div class="topic-num">4.</div>
+          <textarea class="topic-text" rows="1" placeholder="Topic..." onchange="updateTopic('c2ybv75',3,'title',this.value)" oninput="autoResize(this)" style="height: 42px;">KIRIDARA: Revenue KPI not set with client yet, and currently only a few bookings from SEM, and FB campaigns not launched yet</textarea>
+          <button class="btn ghost sm" style="padding:2px 7px" onclick="removeTopic('c2ybv75',3)">×</button>
+        </div><div class="topic-item">
+          <div class="topic-num">5.</div>
+          <textarea class="topic-text" rows="1" placeholder="Topic..." onchange="updateTopic('c2ybv75',4,'title',this.value)" oninput="autoResize(this)" style="height: 63px;">MINOR Dashboard: Currently show too low booking revenue. P’KiT will monitor potential countries to adjust geo optimization to boost booking revenue in dashboard (Urgent Accounts: ANCEI1, AHAR, MNLD, VBAR, AKMI)</textarea>
+          <button class="btn ghost sm" style="padding:2px 7px" onclick="removeTopic('c2ybv75',4)">×</button>
+        </div><div class="topic-item">
+          <div class="topic-num">6.</div>
+          <textarea class="topic-text" rows="1" placeholder="Topic..." onchange="updateTopic('c2ybv75',5,'title',this.value)" oninput="autoResize(this)" style="height: 24px;">WCL &amp; DHR to recheck GTM</textarea>
+          <button class="btn ghost sm" style="padding:2px 7px" onclick="removeTopic('c2ybv75',5)">×</button>
         </div>
-        <div class="tl-actions">
-          <button class="btn ghost sm" style="font-size:11px;padding:2px 7px" onclick="event.stopPropagation();editHistory('s8pdjfj',0)">✏️</button>
-          <button class="btn danger sm" style="font-size:11px;padding:2px 7px" onclick="event.stopPropagation();deleteHistory('s8pdjfj',0)">×</button>
-        </div>
-      </div></div>
-  </div><div class="case-card">
-    <div class="case-hd" onclick="toggleCase('1w9501v')">
-      <div class="case-id-badge">#003</div>
-      <input class="case-ttl-input" value="KIRIDARA: only a few bookings from SEM, and FB campaigns not launched yet" onclick="event.stopPropagation()" onchange="updateCaseField('1w9501v','title',this.value)" placeholder="Case title...">
-      <div class="case-meta2">
-        <span class="badge b-open">Open</span>
-        <select class="owner-sel" onclick="event.stopPropagation()" onchange="updateCaseField('1w9501v','owner',this.value)">
-          <option value="">— Owner —</option><option value="Dow">Dow</option><option value="P'BiG">P'BiG</option><option value="Aun">Aun</option><option value="Mine">Mine</option><option value="Stamp">Stamp</option><option value="Leroy" selected="">Leroy</option><option value="P'KiT">P'KiT</option>
+      </div>
+      <div class="add-row" onclick="addTopic('c2ybv75')">＋ Add topic</div>
+    </div>
+
+    <div class="section">
+      <div class="sec-label" style="justify-content:space-between">
+        <span>✅ Pending Tasks</span>
+        <button class="btn primary sm" style="margin-left:12px" onclick="addTask('c2ybv75')">+ Task</button>
+      </div>
+      <div class="task-item">
+    <div class="task-left">
+      <input class="task-title-input" value="MINOR Dashboard: Currently show too low booking revenue (Urgent Accounts: ANCEI1, AHAR, MNLD, VBAR, AKMI)" placeholder="Task..." onchange="updateTask('c2ybv75','7q9skk4','title',this.value)">
+      <div class="task-meta">
+        <div style="width:18px;height:18px;border-radius:50%;background:#8b3a3a;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0">P</div>
+        <select class="status-sel" onchange="updateTask('c2ybv75','7q9skk4','owner',this.value)" onclick="event.stopPropagation()">
+          <option value="">Owner...</option>
+          <option value="Dow">Dow</option><option value="P'BiG">P'BiG</option><option value="Aun">Aun</option><option value="Mine">Mine</option><option value="Stamp">Stamp</option><option value="Leroy">Leroy</option><option value="P'KiT" selected="">P'KiT</option>
         </select>
-        <span class="lead-badge">1d</span>
-        <button class="btn ghost sm" onclick="event.stopPropagation();addUpdate('1w9501v')">+ Update</button>
-        <button class="btn sm" style="color:var(--accent);border-color:var(--accent)" onclick="event.stopPropagation();closeCase('1w9501v')">✔ Close</button>
-        <button class="btn danger sm" onclick="event.stopPropagation();deleteCase('1w9501v')">🗑</button>
-        <span class="chev open">▶</span>
+        <input class="meta-input" type="date" value="2026-05-27" onchange="updateTask('c2ybv75','7q9skk4','due',this.value)">
+        <select class="status-sel" onchange="updateTask('c2ybv75','7q9skk4','status',this.value)">
+          <option value="open" selected="">Open</option><option value="in_progress">In Progress</option><option value="closed">Closed</option>
+        </select>
+        <span class="case-link" onclick="goCase('f3h5zlz')">#004</span>
+        <button class="btn ghost sm" style="font-size:11px;padding:2px 8px" onclick="linkCase('c2ybv75','7q9skk4')">🔗 Case</button>
       </div>
     </div>
-    <div class="tl"><div class="tl-sep"></div>
-      <div class="tl-item">
-        <div class="tl-dot d-open">★</div>
-        <div class="tl-body">
-          <div class="tl-date">27 May 2026</div>
-          <div class="tl-action">to review campaign performance with P’KiT</div>
-          <div class="tl-by">by Leroy</div>
-        </div>
-        <div class="tl-actions">
-          <button class="btn ghost sm" style="font-size:11px;padding:2px 7px" onclick="event.stopPropagation();editHistory('1w9501v',0)">✏️</button>
-          <button class="btn danger sm" style="font-size:11px;padding:2px 7px" onclick="event.stopPropagation();deleteHistory('1w9501v',0)">×</button>
-        </div>
-      </div></div>
-  </div><div class="case-card">
-    <div class="case-hd" onclick="toggleCase('f3h5zlz')">
-      <div class="case-id-badge">#004</div>
-      <input class="case-ttl-input" value="MINOR Dashboard: Currently show too low booking revenue (Urgent Accounts: ANCEI1, AHAR, MNLD, VBAR, AKMI)" onclick="event.stopPropagation()" onchange="updateCaseField('f3h5zlz','title',this.value)" placeholder="Case title...">
-      <div class="case-meta2">
-        <span class="badge b-in_progress">In Progress</span>
-        <select class="owner-sel" onclick="event.stopPropagation()" onchange="updateCaseField('f3h5zlz','owner',this.value)">
-          <option value="">— Owner —</option><option value="Dow">Dow</option><option value="P'BiG">P'BiG</option><option value="Aun">Aun</option><option value="Mine">Mine</option><option value="Stamp">Stamp</option><option value="Leroy">Leroy</option><option value="P'KiT" selected="">P'KiT</option>
+    <button class="btn danger sm" onclick="removeTask('c2ybv75','7q9skk4')">×</button>
+  </div><div class="task-item">
+    <div class="task-left">
+      <input class="task-title-input" value="Souphattra: low bookings revenue" placeholder="Task..." onchange="updateTask('c2ybv75','vf2c0pf','title',this.value)">
+      <div class="task-meta">
+        <div style="width:18px;height:18px;border-radius:50%;background:#1a4a8a;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0">L</div>
+        <select class="status-sel" onchange="updateTask('c2ybv75','vf2c0pf','owner',this.value)" onclick="event.stopPropagation()">
+          <option value="">Owner...</option>
+          <option value="Dow">Dow</option><option value="P'BiG">P'BiG</option><option value="Aun">Aun</option><option value="Mine">Mine</option><option value="Stamp">Stamp</option><option value="Leroy" selected="">Leroy</option><option value="P'KiT">P'KiT</option>
         </select>
-        <span class="lead-badge">1d</span>
-        <button class="btn ghost sm" onclick="event.stopPropagation();addUpdate('f3h5zlz')">+ Update</button>
-        <button class="btn sm" style="color:var(--accent);border-color:var(--accent)" onclick="event.stopPropagation();closeCase('f3h5zlz')">✔ Close</button>
-        <button class="btn danger sm" onclick="event.stopPropagation();deleteCase('f3h5zlz')">🗑</button>
-        <span class="chev open">▶</span>
+        <input class="meta-input" type="date" value="2026-05-27" onchange="updateTask('c2ybv75','vf2c0pf','due',this.value)">
+        <select class="status-sel" onchange="updateTask('c2ybv75','vf2c0pf','status',this.value)">
+          <option value="open" selected="">Open</option><option value="in_progress">In Progress</option><option value="closed">Closed</option>
+        </select>
+        <span class="case-link" onclick="goCase('s8pdjfj')">#002</span>
+        <button class="btn ghost sm" style="font-size:11px;padding:2px 8px" onclick="linkCase('c2ybv75','vf2c0pf')">🔗 Case</button>
       </div>
     </div>
-    <div class="tl"><div class="tl-sep"></div>
-      <div class="tl-item">
-        <div class="tl-dot d-open">★</div>
-        <div class="tl-body">
-          <div class="tl-date">27 May 2026</div>
-          <div class="tl-action">to monitor potential countries and adjust geo optimization to boost booking revenue in dashboard</div>
-          <div class="tl-by">by P'KiT</div>
-        </div>
-        <div class="tl-actions">
-          <button class="btn ghost sm" style="font-size:11px;padding:2px 7px" onclick="event.stopPropagation();editHistory('f3h5zlz',0)">✏️</button>
-          <button class="btn danger sm" style="font-size:11px;padding:2px 7px" onclick="event.stopPropagation();deleteHistory('f3h5zlz',0)">×</button>
-        </div>
-      </div></div>
+    <button class="btn danger sm" onclick="removeTask('c2ybv75','vf2c0pf')">×</button>
+  </div><div class="task-item">
+    <div class="task-left">
+      <input class="task-title-input" value="KIRIDARA: only a few bookings from SEM, and FB campaigns not launched yet" placeholder="Task..." onchange="updateTask('c2ybv75','fqx88bc','title',this.value)">
+      <div class="task-meta">
+        <div style="width:18px;height:18px;border-radius:50%;background:#8b3a3a;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0">P</div>
+        <select class="status-sel" onchange="updateTask('c2ybv75','fqx88bc','owner',this.value)" onclick="event.stopPropagation()">
+          <option value="">Owner...</option>
+          <option value="Dow">Dow</option><option value="P'BiG">P'BiG</option><option value="Aun">Aun</option><option value="Mine">Mine</option><option value="Stamp">Stamp</option><option value="Leroy">Leroy</option><option value="P'KiT" selected="">P'KiT</option>
+        </select>
+        <input class="meta-input" type="date" value="2026-05-27" onchange="updateTask('c2ybv75','fqx88bc','due',this.value)">
+        <select class="status-sel" onchange="updateTask('c2ybv75','fqx88bc','status',this.value)">
+          <option value="open" selected="">Open</option><option value="in_progress">In Progress</option><option value="closed">Closed</option>
+        </select>
+        <span class="case-link" onclick="goCase('1w9501v')">#003</span>
+        <button class="btn ghost sm" style="font-size:11px;padding:2px 8px" onclick="linkCase('c2ybv75','fqx88bc')">🔗 Case</button>
+      </div>
+    </div>
+    <button class="btn danger sm" onclick="removeTask('c2ybv75','fqx88bc')">×</button>
+  </div><div class="task-item">
+    <div class="task-left">
+      <input class="task-title-input" value="Hot Spring: Performance dropped, and client reduced budget" placeholder="Task..." onchange="updateTask('c2ybv75','gvhxe33','title',this.value)">
+      <div class="task-meta">
+        <div style="width:18px;height:18px;border-radius:50%;background:#1a4a8a;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0">L</div>
+        <select class="status-sel" onchange="updateTask('c2ybv75','gvhxe33','owner',this.value)" onclick="event.stopPropagation()">
+          <option value="">Owner...</option>
+          <option value="Dow">Dow</option><option value="P'BiG">P'BiG</option><option value="Aun">Aun</option><option value="Mine">Mine</option><option value="Stamp">Stamp</option><option value="Leroy" selected="">Leroy</option><option value="P'KiT">P'KiT</option>
+        </select>
+        <input class="meta-input" type="date" value="2026-05-27" onchange="updateTask('c2ybv75','gvhxe33','due',this.value)">
+        <select class="status-sel" onchange="updateTask('c2ybv75','gvhxe33','status',this.value)">
+          <option value="open" selected="">Open</option><option value="in_progress">In Progress</option><option value="closed">Closed</option>
+        </select>
+        <span class="case-link" onclick="goCase('05qzsfp')">#001</span>
+        <button class="btn ghost sm" style="font-size:11px;padding:2px 8px" onclick="linkCase('c2ybv75','gvhxe33')">🔗 Case</button>
+      </div>
+    </div>
+    <button class="btn danger sm" onclick="removeTask('c2ybv75','gvhxe33')">×</button>
   </div>
+    </div>
   </div><span class="ro-badge">👁 View Only</span>
   </div>
 </div>
 <nav class="bottom-nav" id="bottom-nav">
-  <button class="bnav-btn" id="bn-meetings" onclick="setTab('meetings')"><span class="bnav-icon">📋</span>Meetings</button>
-  <button class="bnav-btn on" id="bn-cases" onclick="setTab('cases')"><span class="bnav-icon">🗂</span>Cases</button>
+  <button class="bnav-btn on" id="bn-meetings" onclick="setTab('meetings')"><span class="bnav-icon">📋</span>Meetings</button>
+  <button class="bnav-btn" id="bn-cases" onclick="setTab('cases')"><span class="bnav-icon">🗂</span>Cases</button>
   <button class="bnav-btn" id="bn-team" onclick="setTab('team')"><span class="bnav-icon">👥</span>Team</button>
 </nav>
 <div id="modals"></div>
-<div class="toast" id="toast">Exported!</div>
+<div class="toast" id="toast"></div>
 
 <script>
 const READ_ONLY = true;
