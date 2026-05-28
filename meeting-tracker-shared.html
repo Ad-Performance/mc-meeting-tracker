@@ -539,7 +539,7 @@ let caseFilter = 'all';
 let caseSearch = '';
 
 function load() {
-  return {
+  /*__DATA_MARKER__*/ return {
   "meetings": [
     {
       "id": "c2ybv75",
@@ -710,7 +710,9 @@ function load() {
       "email": "kittipong@media-console.com"
     }
   ]
-};
+}; //
+  try { const r = localStorage.getItem(STORAGE_KEY); if (r) return JSON.parse(r); } catch(e) {}
+  return { meetings: [], cases: [], team: [] };
 }
 function save() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(S)); } catch(e) {} }
 function ensureTeam() { if (!S.team) S.team = []; }
@@ -1260,16 +1262,10 @@ function exportHTML(){
   const data = JSON.stringify(S, null, 2);
   let snapshot = document.documentElement.outerHTML;
 
-  // Bake in data
+  // Bake in data using marker
   snapshot = snapshot.replace(
-    'function load() {\n  try { const r = localStorage.getItem(STORAGE_KEY); if (r) return JSON.parse(r); } catch(e) {}\n  return { meetings: [], cases: [], team: [] };\n}',
-    'function load() {\n  return ' + data + ';\n}'
-  );
-
-  // Remove seed data
-  snapshot = snapshot.replace(
-    /if\(!S\.meetings\.length&&!S\.cases\.length\)\{[\s\S]*?activeMid=S\.meetings\[0\]\.id;save\(\);\s*\}/,
-    'activeMid = S.meetings[0]?.id || null;'
+    '/*__DATA_MARKER__*/',
+    '/*__DATA_MARKER__*/ return ' + data + '; //'
   );
 
   // Inject read-only mode flag
@@ -1373,7 +1369,30 @@ ${openCases.length?`<div class="sec"><div class="st">🗂 Open Cases</div>${open
 }
 
 // Seed data
-activeMid = S.meetings[0]?.id || null;
+if(!S.meetings.length&&!S.cases.length){
+  const c1=genId(),c2=genId();
+  S.cases=[
+    {id:c1,title:'Login failure during peak hours',owner:'Somchai',status:'in_progress',openDate:'2025-05-07',closedDate:null,_open:false,
+     history:[{type:'open',date:'2025-05-07',action:'Users cannot login between 9–10 AM every day',by:'Somchai'},{type:'update',date:'2025-05-14',action:'Found DB connection pool exhausted — doubled pool size',by:'Vipa'},{type:'update',date:'2025-05-21',action:'60% improvement but issue persists — still investigating',by:'Somchai'}]},
+    {id:c2,title:'Report export file corruption',owner:'Vipa',status:'open',openDate:'2025-05-21',closedDate:null,_open:false,
+     history:[{type:'open',date:'2025-05-21',action:'Users report Excel export files occasionally cannot be opened. Root cause unknown.',by:'Vipa'}]},
+  ];
+  S.meetings=[
+    {id:genId(),date:'2025-05-28',title:'Weekly Sync W22',attendees:['Somchai','Vipa','Thana'],
+     topics:[{title:'Follow-up: Login issue'},{title:'Report export bug — root cause analysis'},{title:'Code freeze plan'}],
+     tasks:[{id:genId(),title:'Load test on production replica',owner:'Somchai',due:'2025-06-03',status:'open',caseId:c1},{id:genId(),title:'Reproduce export bug',owner:'Vipa',due:'2025-06-02',status:'open',caseId:c2}]},
+    {id:genId(),date:'2025-05-21',title:'Weekly Sync W21',attendees:['Somchai','Vipa','Thana','Preeyah'],
+     topics:[{title:'Sprint progress update'},{title:'Production bug report'},{title:'Deployment plan for next week'}],
+     tasks:[{id:genId(),title:'Fix DB pool config',owner:'Vipa',due:'2025-05-28',status:'closed',caseId:c1},{id:genId(),title:'Create load test cases',owner:'Somchai',due:'2025-05-27',status:'closed',caseId:null}]},
+  ];
+  S.team=[
+    {name:'Somchai',email:'somchai@company.com'},
+    {name:'Vipa',email:'vipa@company.com'},
+    {name:'Thana',email:'thana@company.com'},
+    {name:'Preeyah',email:'preeyah@company.com'},
+  ];
+  activeMid=S.meetings[0].id;save();
+}
 
 render();
 </script>
